@@ -5,11 +5,8 @@ import numpy as np
 df=pd.read_csv('annotation.csv',delimiter=';')
 print(df)
 #second
-df.rename(columns={"Класс":"Class"})
+df=df.rename(columns={"Абсолютный путь":"absolute_path","Класс":"class"})
+print(df)
 #third
-shape=df.shape
-print(shape)
-for row in shape:
-    if df.Класс
-        df.loc[[df.index[row]],'Метка']=0
-
+df['marks'] = df['class'].apply(lambda x: '0' if x == 'cat' else '1')
+print(df)
