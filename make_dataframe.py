@@ -1,25 +1,49 @@
-import pandas as pd
-import numpy as np
-import cv2
 from random import randint
-from matplotlib import pyplot as plt
 
+import cv2
+import pandas as pd
+from matplotlib import pyplot as plt
 
 # six
 
 
-def sort_marks(df, mark: int):
+def sort_marks(df: pd.DataFrame, mark: int) -> pd.DataFrame:
+    """сортирует датафрейм по заданной метке
+
+    Args:
+        df (pd.DataFrame): датафрейм
+        mark (int): метка класса
+
+    Returns:
+        df (pd.DataFrame): датафрейм отсортированный
+    """
     return df[df.marks == f'{mark}']
 # seven
 
 
-def sort_max(df, mark: int, max_height: int, max_width):
+def sort_max(df: pd.DataFrame, mark: int, max_height: int, max_width) -> pd.DataFrame:
+    """сортирует датафрейм по заданным значениям
+
+    Args:
+        df (pd.DataFrame): датафрейм
+        mark (int): метка класса
+        max_height (int): максимальная высота
+        max_width (_type_): максимальная ширина
+
+    Returns:
+        pd.DataFrame: датафрейм отсортированный
+    """
     return df[((df.marks == f'{mark}') & (df.height < max_height) & (df.width < max_width))]
 
 
 # nine
 
-def histograms(df, mark: int):
+def histograms(df: pd.DataFrame) -> None:
+    """Создает гистограмму
+
+    Args:
+        df (pd.DataFrame): датафрейм
+    """
     absolute_path_list = df.absolute_path.tolist()
     image = cv2.imread(absolute_path_list[randint(0, 2000)])
     color = ('b', 'g', 'r')
@@ -65,8 +89,8 @@ def main():
     print(df)
     # five
     print("Статистика")
-    print(df[["height","width","channels"]].describe())
-    
+    print(df[["height", "width", "channels"]].describe())
+
     df_marks = sort_marks(df, 0)
     print("Сортировка по метке")
     print(df_marks)
